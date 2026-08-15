@@ -1,0 +1,150 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  DONOR
+  NGO
+  VOLUNTEER
+  ADMIN
+}
+
+enum DonationStatus {
+  AVAILABLE
+  REQUESTED
+  ACCEPTED
+  ASSIGNED
+  PICKED_UP
+  IN_TRANSIT
+  DELIVERED
+  EXPIRED
+  CANCELLED
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+enum DeliveryStatus {
+  PENDING
+  ASSIGNED
+  PICKED_UP
+  IN_TRANSIT
+  DELIVERED
+  CANCELLED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  firstName    String
+  lastName     String
+  email        String   @unique
+  password     String
+  role         UserRole
+  phone        String?
+  address      String?
+  city         String?
+  profileImage String?
+
+  organizationName String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  donations      FoodDonation[]
+  requests       DonationRequest[]
+  donorDeliveries Delivery[] @relation("DonorDeliveries")
+  volunteerDeliveries Delivery[] @relation("VolunteerDeliveries")
+  notifications  Notification[]
+}
+
+model FoodDonation {
+  id          String         @id @default(cuid())
+  foodName    String
+  description String?
+  category    String
+  quantity    Int
+  unit        String
+  imageUrl    String?
+
+  preparationDate DateTime?
+  expiryDate      DateTime
+
+  pickupAddress String
+  pickupCity    String
+
+  status DonationStatus @default(AVAILABLE)
+
+  donorId String
+  donor   User   @relation(fields: [donorId], references: [id], onDelete: Cascade)
+
+  requests  DonationRequest[]
+  deliveries Delivery[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DonationRequest {
+  id String @id @default(cuid())
+
+  donationId String
+  donation   FoodDonation @relation(fields: [donationId], references: [id], onDelete: Cascade)
+
+  ngoId String
+  ngo   User @relation(fields: [ngoId], references: [id], onDelete: Cascade)
+
+  status RequestStatus @default(PENDING)
+
+  message String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([donationId, ngoId])
+}
+
+model Delivery {
+  id String @id @default(cuid())
+
+  donationId String
+  donation   FoodDonation @relation(fields: [donationId], references: [id], onDelete: Cascade)
+
+  donorId String
+  donor   User @relation("DonorDeliveries", fields: [donorId], references: [id])
+
+  volunteerId String?
+  volunteer   User? @relation("VolunteerDeliveries", fields: [volunteerId], references: [id])
+
+  pickupAddress  String
+  deliveryAddress String
+
+  status DeliveryStatus @default(PENDING)
+
+  pickedUpAt  DateTime?
+  deliveredAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Notification {
+  id String @id @default(cuid())
+
+  userId String
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  title   String
+  message String
+  isRead  Boolean @default(false)
+
+  createdAt DateTime @default(now())
+}
