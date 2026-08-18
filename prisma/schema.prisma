@@ -59,11 +59,12 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  donations      FoodDonation[]
-  requests       DonationRequest[]
-  donorDeliveries Delivery[] @relation("DonorDeliveries")
-  volunteerDeliveries Delivery[] @relation("VolunteerDeliveries")
-  notifications  Notification[]
+  donations           FoodDonation[]
+  requests            DonationRequest[]
+  donorDeliveries     Delivery[]        @relation("DonorDeliveries")
+  volunteerDeliveries Delivery[]        @relation("VolunteerDeliveries")
+  notifications       Notification[]
+  payments            Payment[]
 }
 
 model FoodDonation {
@@ -86,7 +87,7 @@ model FoodDonation {
   donorId String
   donor   User   @relation(fields: [donorId], references: [id], onDelete: Cascade)
 
-  requests  DonationRequest[]
+  requests   DonationRequest[]
   deliveries Delivery[]
 
   createdAt DateTime @default(now())
@@ -100,7 +101,7 @@ model DonationRequest {
   donation   FoodDonation @relation(fields: [donationId], references: [id], onDelete: Cascade)
 
   ngoId String
-  ngo   User @relation(fields: [ngoId], references: [id], onDelete: Cascade)
+  ngo   User   @relation(fields: [ngoId], references: [id], onDelete: Cascade)
 
   status RequestStatus @default(PENDING)
 
@@ -119,12 +120,12 @@ model Delivery {
   donation   FoodDonation @relation(fields: [donationId], references: [id], onDelete: Cascade)
 
   donorId String
-  donor   User @relation("DonorDeliveries", fields: [donorId], references: [id])
+  donor   User   @relation("DonorDeliveries", fields: [donorId], references: [id])
 
   volunteerId String?
-  volunteer   User? @relation("VolunteerDeliveries", fields: [volunteerId], references: [id])
+  volunteer   User?   @relation("VolunteerDeliveries", fields: [volunteerId], references: [id])
 
-  pickupAddress  String
+  pickupAddress   String
   deliveryAddress String
 
   status DeliveryStatus @default(PENDING)
@@ -140,11 +141,35 @@ model Notification {
   id String @id @default(cuid())
 
   userId String
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   title   String
   message String
   isRead  Boolean @default(false)
 
   createdAt DateTime @default(now())
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model Payment {
+  id                String   @id @default(cuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  razorpayOrderId   String   @unique
+  razorpayPaymentId String?
+  razorpaySignature String?
+  amount            Float
+  currency          String   @default("INR")
+  status            String   @default("CREATED")
+  purpose           String
+  role              UserRole
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }

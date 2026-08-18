@@ -6,6 +6,7 @@ import {
   ClipboardList,
   History,
   Bell,
+  CreditCard,
 } from "lucide-react";
 
 import DashboardShell from "@/components/dashboard/DashboardShell";
@@ -53,6 +54,11 @@ export default async function VolunteerLayout({
       label: "History",
       href: "/volunteer/history",
       icon: <History size={19} />,
+    },
+    {
+      label: "Payments",
+      href: "/volunteer/payments",
+      icon: <CreditCard size={19} />,
     },
     {
       label: "Notifications",

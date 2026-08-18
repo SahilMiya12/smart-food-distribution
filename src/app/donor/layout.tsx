@@ -6,6 +6,7 @@ import {
   PlusCircle,
   ClipboardList,
   Truck,
+  CreditCard,
 } from "lucide-react";
 
 import { verifyToken } from "@/lib/auth";
@@ -36,32 +37,37 @@ export default async function DonorLayout({
   }
 
   const navItems = [
-  {
-    label: "Dashboard",
-    href: "/donor/dashboard",
-    icon: <LayoutDashboard size={19} />,
-  },
-  {
-    label: "My Donations",
-    href: "/donor/donations",
-    icon: <Package size={19} />,
-  },
-  {
-    label: "Create Donation",
-    href: "/donor/donations/create",
-    icon: <PlusCircle size={19} />,
-  },
-  {
-    label: "Requests",
-    href: "/donor/requests/received",
-    icon: <ClipboardList size={19} />,
-  },
-  {
-    label: "Deliveries",
-    href: "/donor/deliveries",
-    icon: <Truck size={19} />,
-  },
-];
+    {
+      label: "Dashboard",
+      href: "/donor/dashboard",
+      icon: <LayoutDashboard size={19} />,
+    },
+    {
+      label: "My Donations",
+      href: "/donor/donations",
+      icon: <Package size={19} />,
+    },
+    {
+      label: "Create Donation",
+      href: "/donor/donations/create",
+      icon: <PlusCircle size={19} />,
+    },
+    {
+      label: "Requests",
+      href: "/donor/requests/received",
+      icon: <ClipboardList size={19} />,
+    },
+    {
+      label: "Deliveries",
+      href: "/donor/deliveries",
+      icon: <Truck size={19} />,
+    },
+    {
+      label: "Payments",
+      href: "/donor/payments",
+      icon: <CreditCard size={19} />,
+    },
+  ];
 
   return (
     <DashboardShell

@@ -51,7 +51,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         <Link href="/" className="mb-8 flex items-center justify-center gap-2 text-xl font-bold text-emerald-800">
           <Heart className="fill-emerald-700 text-emerald-700" />
-          FoodBridge
+          Smart Food Distribution
         </Link>
 
         <div className="rounded-3xl border border-gray-100 bg-white p-8 shadow-sm">
@@ -74,7 +74,12 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">Password</label>
+              <div className="flex items-center justify-between mb-2">
+                <label className="block text-sm font-medium text-gray-700">Password</label>
+                <Link href="/forgot-password" className="text-xs font-semibold text-emerald-700 hover:underline">
+                  Forgot Password?
+                </Link>
+              </div>
               <input
                 type="password"
                 value={password}

@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Shield, CheckCircle2, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { Shield, CheckCircle2, Loader2, ArrowLeft } from "lucide-react";
 
 export default function DonorProfilePage() {
   const [profile, setProfile] = useState<any>(null);
@@ -59,6 +60,14 @@ export default function DonorProfilePage() {
 
   return (
     <div className="mx-auto max-w-4xl space-y-6">
+      <Link
+        href="/donor/dashboard"
+        className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-emerald-600"
+      >
+        <ArrowLeft size={18} />
+        Back to Dashboard
+      </Link>
+
       <div>
         <h1 className="text-3xl font-black text-slate-900">Donor Profile</h1>
         <p className="text-slate-500">Manage your organization and donor contact information.</p>

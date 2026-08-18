@@ -4,6 +4,9 @@ import {
   LayoutDashboard,
   Search,
   FileText,
+  PackageCheck,
+  Bell,
+  CreditCard,
 } from "lucide-react";
 
 import DashboardShell from "@/components/dashboard/DashboardShell";
@@ -14,24 +17,19 @@ export default async function NgoLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Read auth cookie
   const cookieStore = await cookies();
   const token = cookieStore.get("auth_token")?.value;
 
-  // No token -> Login
   if (!token) {
     redirect("/login");
   }
 
-  // Verify JWT
   const user = await verifyToken(token);
 
-  // Invalid token -> Login
   if (!user) {
     redirect("/login");
   }
 
-  // Wrong role -> Home
   if (user.role !== "NGO") {
     redirect("/");
   }
@@ -52,6 +50,21 @@ export default async function NgoLayout({
       href: "/ngo/requests",
       icon: <FileText size={19} />,
     },
+    {
+      label: "Rescued Food",
+      href: "/ngo/my-food",
+      icon: <PackageCheck size={19} />,
+    },
+    {
+      label: "Payments",
+      href: "/ngo/payments",
+      icon: <CreditCard size={19} />,
+    },
+    {
+      label: "Notifications",
+      href: "/ngo/notifications",
+      icon: <Bell size={19} />,
+    },
   ];
 
   return (
@@ -60,11 +73,7 @@ export default async function NgoLayout({
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        role: user.role as
-          | "DONOR"
-          | "NGO"
-          | "VOLUNTEER"
-          | "ADMIN",
+        role: user.role as "DONOR" | "NGO" | "VOLUNTEER" | "ADMIN",
       }}
       navItems={navItems}
     >

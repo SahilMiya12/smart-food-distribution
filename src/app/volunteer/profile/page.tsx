@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { User as UserIcon, Mail, Phone, MapPin, Building, Shield, CheckCircle2, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { Bike, CheckCircle2, Loader2, ArrowLeft } from "lucide-react";
 
 export default function VolunteerProfilePage() {
   const [profile, setProfile] = useState<any>(null);
@@ -32,7 +33,6 @@ export default function VolunteerProfilePage() {
           firstName: profile.firstName,
           lastName: profile.lastName,
           phone: profile.phone,
-          address: profile.address,
           city: profile.city,
         }),
       });
@@ -58,21 +58,28 @@ export default function VolunteerProfilePage() {
 
   return (
     <div className="mx-auto max-w-4xl space-y-6">
+      <Link
+        href="/volunteer/dashboard"
+        className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-emerald-600"
+      >
+        <ArrowLeft size={18} />
+        Back to Dashboard
+      </Link>
+
       <div>
         <h1 className="text-3xl font-black text-slate-900">Volunteer Profile</h1>
-        <p className="text-slate-500">Manage your personal information and contact details.</p>
+        <p className="text-slate-500">Manage your driver information and contact details.</p>
       </div>
 
       {success && (
         <div className="flex items-center gap-2 rounded-2xl bg-emerald-50 p-4 text-emerald-800">
-          <CheckCircle2 size={18} />
-          Profile updated successfully!
+          <CheckCircle2 size={18} /> Profile updated successfully!
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
         <div className="mb-8 flex items-center gap-4">
-          <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-emerald-100 text-2xl font-bold text-emerald-700">
+          <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-blue-100 text-2xl font-bold text-blue-700">
             {profile?.firstName?.[0]}
             {profile?.lastName?.[0]}
           </div>
@@ -80,8 +87,8 @@ export default function VolunteerProfilePage() {
             <h2 className="text-xl font-bold text-slate-900">
               {profile?.firstName} {profile?.lastName}
             </h2>
-            <p className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600">
-              <Shield size={14} /> Verified Volunteer
+            <p className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600">
+              <Bike size={14} /> Certified Volunteer Driver
             </p>
           </div>
         </div>
@@ -126,17 +133,6 @@ export default function VolunteerProfilePage() {
               value={profile?.phone || ""}
               onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
               placeholder="+1 (555) 000-0000"
-              className="mt-2 w-full rounded-2xl border border-slate-200 p-3 text-sm focus:border-emerald-600 focus:outline-none"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">Address</label>
-            <input
-              type="text"
-              value={profile?.address || ""}
-              onChange={(e) => setProfile({ ...profile, address: e.target.value })}
-              placeholder="123 Main St"
               className="mt-2 w-full rounded-2xl border border-slate-200 p-3 text-sm focus:border-emerald-600 focus:outline-none"
             />
           </div>

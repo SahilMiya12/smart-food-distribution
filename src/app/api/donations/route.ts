@@ -1,29 +1,21 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-
 import { prisma } from "@/lib/prisma";
 import { verifyToken } from "@/lib/auth";
+import { notifyUsersByRole } from "@/lib/notifications";
 
 export async function POST(request: Request) {
   try {
     const cookieStore = await cookies();
-
     const token = cookieStore.get("auth_token")?.value;
 
     if (!token) {
-      return NextResponse.json(
-        { message: "Unauthorized" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
     const user = await verifyToken(token);
-
     if (!user) {
-      return NextResponse.json(
-        { message: "Invalid authentication" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: "Invalid authentication" }, { status: 401 });
     }
 
     const body = await request.json();
@@ -52,10 +44,7 @@ export async function POST(request: Request) {
 
     if (missingFields.length > 0) {
       return NextResponse.json(
-        {
-          message: "Required fields are missing",
-          missingFields,
-        },
+        { message: "Required fields are missing", missingFields },
         { status: 400 }
       );
     }
@@ -75,67 +64,51 @@ export async function POST(request: Request) {
       },
     });
 
+    // Notify all NGOs and Volunteers of new surplus food donation
+    await notifyUsersByRole(
+      "NGO",
+      "New Food Donation Available",
+      `Fresh donation '${foodName}' (${quantity} ${unit}) is available in ${pickupCity}.`
+    );
+
+    await notifyUsersByRole(
+      "VOLUNTEER",
+      "New Food Listing",
+      `Surplus food '${foodName}' listed in ${pickupCity}. Prepare for delivery requests.`
+    );
+
     return NextResponse.json(
-      {
-        message: "Donation created successfully",
-        donation,
-      },
+      { message: "Donation created successfully", donation },
       { status: 201 }
     );
   } catch (error) {
     console.error("CREATE DONATION ERROR:", error);
-
-    return NextResponse.json(
-      {
-        message: "Failed to create donation",
-      },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: "Failed to create donation" }, { status: 500 });
   }
 }
 
 export async function GET() {
   try {
     const cookieStore = await cookies();
-
     const token = cookieStore.get("auth_token")?.value;
 
     if (!token) {
-      return NextResponse.json(
-        { message: "Unauthorized" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
     const user = await verifyToken(token);
-
     if (!user) {
-      return NextResponse.json(
-        { message: "Invalid authentication" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: "Invalid authentication" }, { status: 401 });
     }
 
     const donations = await prisma.foodDonation.findMany({
-      where: {
-        donorId: user.id,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
+      where: { donorId: user.id },
+      orderBy: { createdAt: "desc" },
     });
 
-    return NextResponse.json({
-      donations,
-    });
+    return NextResponse.json({ donations });
   } catch (error) {
     console.error("GET DONATIONS ERROR:", error);
-
-    return NextResponse.json(
-      {
-        message: "Failed to fetch donations",
-      },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: "Failed to fetch donations" }, { status: 500 });
   }
 }

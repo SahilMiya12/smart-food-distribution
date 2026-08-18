@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Settings, Shield, CheckCircle2 } from "lucide-react";
+import Link from "next/link";
+import { Settings, Shield, CheckCircle2, ArrowLeft } from "lucide-react";
 
 export default function AdminSettingsPage() {
   const [maintenanceMode, setMaintenanceMode] = useState(false);
@@ -16,6 +17,14 @@ export default function AdminSettingsPage() {
 
   return (
     <div className="mx-auto max-w-4xl space-y-6">
+      <Link
+        href="/admin/dashboard"
+        className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-emerald-600"
+      >
+        <ArrowLeft size={18} />
+        Back to Dashboard
+      </Link>
+
       <div>
         <h1 className="text-3xl font-black text-slate-900">Admin Settings</h1>
         <p className="text-slate-500">Configure global application and system parameters.</p>

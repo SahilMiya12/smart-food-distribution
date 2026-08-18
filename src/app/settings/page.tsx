@@ -1,105 +1,85 @@
 "use client";
 
-import {
-  Bell,
-  Lock,
-  ShieldCheck,
-  Settings as SettingsIcon,
-} from "lucide-react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { ArrowLeft, Bell, Lock, CheckCircle2 } from "lucide-react";
 
 export default function SettingsPage() {
+  const [userRole, setUserRole] = useState("DONOR");
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.user?.role) setUserRole(data.user.role);
+      })
+      .catch(() => {});
+  }, []);
+
+  const dashboardHref =
+    userRole === "DONOR"
+      ? "/donor/dashboard"
+      : userRole === "VOLUNTEER"
+      ? "/volunteer/dashboard"
+      : userRole === "NGO"
+      ? "/ngo/dashboard"
+      : userRole === "ADMIN"
+      ? "/admin/dashboard"
+      : "/dashboard";
+
+  function handleSave() {
+    setSuccess(true);
+    setTimeout(() => setSuccess(false), 3000);
+  }
+
   return (
-    <div className="mx-auto max-w-5xl space-y-8">
+    <div className="mx-auto max-w-4xl space-y-6 p-6 lg:p-8">
+      <Link
+        href={dashboardHref}
+        className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-emerald-600"
+      >
+        <ArrowLeft size={18} />
+        Back to Dashboard
+      </Link>
 
       <div>
-        <p className="text-sm font-semibold text-emerald-600">
-          Account
-        </p>
-
-        <h1 className="mt-2 text-3xl font-bold text-slate-900">
-          Settings
-        </h1>
-
-        <p className="mt-2 text-slate-500">
-          Manage your preferences and account security.
-        </p>
+        <h1 className="text-3xl font-black text-slate-900">Account Settings</h1>
+        <p className="text-slate-500">Manage account security and notification preferences.</p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
+      {success && (
+        <div className="flex items-center gap-2 rounded-2xl bg-emerald-50 p-4 text-emerald-800 text-sm font-semibold">
+          <CheckCircle2 size={18} /> Settings saved successfully!
+        </div>
+      )}
 
-        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-600">
-            <Bell size={22} />
-          </div>
-
-          <h2 className="font-bold text-slate-900">
-            Notifications
+      <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm space-y-6">
+        <div>
+          <h2 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <Bell size={20} className="text-emerald-600" /> System Notifications
           </h2>
-
-          <p className="mt-2 text-sm text-slate-500">
-            Manage how you receive updates about donations,
-            requests, and deliveries.
-          </p>
-
-          <div className="mt-6 flex items-center justify-between">
-            <span className="text-sm font-semibold">
-              Email Notifications
-            </span>
-
+          <label className="flex items-center justify-between p-4 rounded-2xl bg-slate-50">
+            <div>
+              <p className="text-sm font-bold text-slate-900">System Updates & Activity Alerts</p>
+              <p className="text-xs text-slate-500">Receive alerts when food items or delivery statuses update.</p>
+            </div>
             <input
               type="checkbox"
               defaultChecked
-              className="h-5 w-5 accent-emerald-600"
+              className="h-5 w-5 rounded text-emerald-600 focus:ring-emerald-500"
             />
-          </div>
+          </label>
         </div>
 
-        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-purple-100 text-purple-600">
-            <Lock size={22} />
-          </div>
-
-          <h2 className="font-bold text-slate-900">
-            Security
-          </h2>
-
-          <p className="mt-2 text-sm text-slate-500">
-            Keep your account secure and manage your password.
-          </p>
-
-          <button className="mt-6 rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white hover:bg-slate-800">
-            Change Password
+        <div className="border-t border-slate-100 pt-6 flex justify-end">
+          <button
+            onClick={handleSave}
+            className="rounded-2xl bg-emerald-600 px-6 py-3 font-semibold text-white transition hover:bg-emerald-700"
+          >
+            Save Preferences
           </button>
         </div>
-
-        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600">
-            <ShieldCheck size={22} />
-          </div>
-
-          <h2 className="font-bold text-slate-900">
-            Privacy
-          </h2>
-
-          <p className="mt-2 text-sm text-slate-500">
-            Your account information is protected and securely stored.
-          </p>
-        </div>
-
-        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-amber-100 text-amber-600">
-            <SettingsIcon size={22} />
-          </div>
-
-          <h2 className="font-bold text-slate-900">
-            Preferences
-          </h2>
-
-          <p className="mt-2 text-sm text-slate-500">
-            Customize your FoodBridge experience.
-          </p>
-        </div>
-
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Shield, CheckCircle2, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { Building, CheckCircle2, Loader2, ArrowLeft } from "lucide-react";
 
 export default function NgoProfilePage() {
   const [profile, setProfile] = useState<any>(null);
@@ -32,9 +33,9 @@ export default function NgoProfilePage() {
           firstName: profile.firstName,
           lastName: profile.lastName,
           phone: profile.phone,
-          address: profile.address,
           city: profile.city,
           organizationName: profile.organizationName,
+          address: profile.address,
         }),
       });
 
@@ -59,48 +60,55 @@ export default function NgoProfilePage() {
 
   return (
     <div className="mx-auto max-w-4xl space-y-6">
+      <Link
+        href="/ngo/dashboard"
+        className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-emerald-600"
+      >
+        <ArrowLeft size={18} />
+        Back to Dashboard
+      </Link>
+
       <div>
-        <h1 className="text-3xl font-black text-slate-900">NGO Profile</h1>
-        <p className="text-slate-500">Manage organization details and contact info.</p>
+        <h1 className="text-3xl font-black text-slate-900">NGO Partner Profile</h1>
+        <p className="text-slate-500">Manage non-profit organization details and contact info.</p>
       </div>
 
       {success && (
         <div className="flex items-center gap-2 rounded-2xl bg-emerald-50 p-4 text-emerald-800">
-          <CheckCircle2 size={18} />
-          Profile updated successfully!
+          <CheckCircle2 size={18} /> Profile updated successfully!
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
         <div className="mb-8 flex items-center gap-4">
-          <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-emerald-100 text-2xl font-bold text-emerald-700">
-            {profile?.organizationName?.[0] || profile?.firstName?.[0]}
+          <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-amber-100 text-2xl font-bold text-amber-700">
+            <Building size={32} />
           </div>
           <div>
             <h2 className="text-xl font-bold text-slate-900">
-              {profile?.organizationName || `${profile?.firstName} ${profile?.lastName}`}
+              {profile?.organizationName || `${profile?.firstName}'s NGO`}
             </h2>
-            <p className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600">
-              <Shield size={14} /> Registered NGO
+            <p className="text-xs font-semibold text-amber-600">
+              Representative: {profile?.firstName} {profile?.lastName}
             </p>
           </div>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2">
-          <div className="sm:col-span-2">
+          <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">Organization Name</label>
             <input
               type="text"
               value={profile?.organizationName || ""}
               onChange={(e) => setProfile({ ...profile, organizationName: e.target.value })}
-              placeholder="e.g. Helping Hands Foundation"
+              placeholder="e.g. Hope Food Relief"
               className="mt-2 w-full rounded-2xl border border-slate-200 p-3 text-sm focus:border-emerald-600 focus:outline-none"
               required
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">Contact First Name</label>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">Representative First Name</label>
             <input
               type="text"
               value={profile?.firstName || ""}
@@ -111,7 +119,7 @@ export default function NgoProfilePage() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">Contact Last Name</label>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">Representative Last Name</label>
             <input
               type="text"
               value={profile?.lastName || ""}
@@ -138,17 +146,6 @@ export default function NgoProfilePage() {
               value={profile?.phone || ""}
               onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
               placeholder="+1 (555) 000-0000"
-              className="mt-2 w-full rounded-2xl border border-slate-200 p-3 text-sm focus:border-emerald-600 focus:outline-none"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">Address</label>
-            <input
-              type="text"
-              value={profile?.address || ""}
-              onChange={(e) => setProfile({ ...profile, address: e.target.value })}
-              placeholder="123 NGO Street"
               className="mt-2 w-full rounded-2xl border border-slate-200 p-3 text-sm focus:border-emerald-600 focus:outline-none"
             />
           </div>

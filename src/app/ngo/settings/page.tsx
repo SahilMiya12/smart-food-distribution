@@ -1,80 +1,67 @@
 "use client";
 
 import { useState } from "react";
-import { Bell, CheckCircle2 } from "lucide-react";
+import Link from "next/link";
+import { ArrowLeft, Bell, CheckCircle2 } from "lucide-react";
 
 export default function NgoSettingsPage() {
-  const [newFoodAlerts, setNewFoodAlerts] = useState(true);
   const [approvalAlerts, setApprovalAlerts] = useState(true);
-  const [saved, setSaved] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  function handleSave(e: React.FormEvent) {
-    e.preventDefault();
-    setSaved(true);
-    setTimeout(() => setSaved(false), 3000);
+  function handleSave() {
+    setSuccess(true);
+    setTimeout(() => setSuccess(false), 3000);
   }
 
   return (
     <div className="mx-auto max-w-4xl space-y-6">
+      <Link
+        href="/ngo/dashboard"
+        className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-emerald-600"
+      >
+        <ArrowLeft size={18} />
+        Back to Dashboard
+      </Link>
+
       <div>
         <h1 className="text-3xl font-black text-slate-900">NGO Settings</h1>
-        <p className="text-slate-500">Configure alert preferences and notifications.</p>
+        <p className="text-slate-500">Configure food request status alerts and notifications.</p>
       </div>
 
-      {saved && (
-        <div className="flex items-center gap-2 rounded-2xl bg-emerald-50 p-4 text-emerald-800">
-          <CheckCircle2 size={18} />
-          Settings saved successfully!
+      {success && (
+        <div className="flex items-center gap-2 rounded-2xl bg-emerald-50 p-4 text-emerald-800 text-sm font-semibold">
+          <CheckCircle2 size={18} /> Settings saved successfully!
         </div>
       )}
 
-      <form onSubmit={handleSave} className="space-y-6">
-        <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-          <h2 className="flex items-center gap-2 text-lg font-bold text-slate-900">
-            <Bell className="text-emerald-600" size={20} />
-            Notifications
+      <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm space-y-6">
+        <div>
+          <h2 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <Bell size={20} className="text-emerald-600" /> Food Approval Alerts
           </h2>
-
-          <div className="mt-6 space-y-4">
-            <label className="flex items-center justify-between cursor-pointer">
-              <div>
-                <p className="font-semibold text-slate-900">New Food Alerts</p>
-                <p className="text-xs text-slate-500">Get notified when new food donations are posted nearby</p>
-              </div>
-              <input
-                type="checkbox"
-                checked={newFoodAlerts}
-                onChange={(e) => setNewFoodAlerts(e.target.checked)}
-                className="h-5 w-5 rounded accent-emerald-600"
-              />
-            </label>
-
-            <div className="border-t border-slate-100" />
-
-            <label className="flex items-center justify-between cursor-pointer">
-              <div>
-                <p className="font-semibold text-slate-900">Request Approval Alerts</p>
-                <p className="text-xs text-slate-500">Get notified when a donor approves your request</p>
-              </div>
-              <input
-                type="checkbox"
-                checked={approvalAlerts}
-                onChange={(e) => setApprovalAlerts(e.target.checked)}
-                className="h-5 w-5 rounded accent-emerald-600"
-              />
-            </label>
-          </div>
+          <label className="flex items-center justify-between p-4 rounded-2xl bg-slate-50">
+            <div>
+              <p className="text-sm font-bold text-slate-900">Request Status Notifications</p>
+              <p className="text-xs text-slate-500">Receive alerts when a donor approves or rejects your request.</p>
+            </div>
+            <input
+              type="checkbox"
+              checked={approvalAlerts}
+              onChange={(e) => setApprovalAlerts(e.target.checked)}
+              className="h-5 w-5 rounded text-emerald-600 focus:ring-emerald-500"
+            />
+          </label>
         </div>
 
-        <div className="flex justify-end">
+        <div className="border-t border-slate-100 pt-6 flex justify-end">
           <button
-            type="submit"
+            onClick={handleSave}
             className="rounded-2xl bg-emerald-600 px-6 py-3 font-semibold text-white transition hover:bg-emerald-700"
           >
-            Save Changes
+            Save Settings
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

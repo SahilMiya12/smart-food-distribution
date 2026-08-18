@@ -251,6 +251,7 @@ export type UserWhereInput = {
   donorDeliveries?: Prisma.DeliveryListRelationFilter
   volunteerDeliveries?: Prisma.DeliveryListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
+  payments?: Prisma.PaymentListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -272,6 +273,7 @@ export type UserOrderByWithRelationInput = {
   donorDeliveries?: Prisma.DeliveryOrderByRelationAggregateInput
   volunteerDeliveries?: Prisma.DeliveryOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
+  payments?: Prisma.PaymentOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -296,6 +298,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   donorDeliveries?: Prisma.DeliveryListRelationFilter
   volunteerDeliveries?: Prisma.DeliveryListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
+  payments?: Prisma.PaymentListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -355,6 +358,7 @@ export type UserCreateInput = {
   donorDeliveries?: Prisma.DeliveryCreateNestedManyWithoutDonorInput
   volunteerDeliveries?: Prisma.DeliveryCreateNestedManyWithoutVolunteerInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -376,6 +380,7 @@ export type UserUncheckedCreateInput = {
   donorDeliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutDonorInput
   volunteerDeliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutVolunteerInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -397,6 +402,7 @@ export type UserUpdateInput = {
   donorDeliveries?: Prisma.DeliveryUpdateManyWithoutDonorNestedInput
   volunteerDeliveries?: Prisma.DeliveryUpdateManyWithoutVolunteerNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -418,6 +424,7 @@ export type UserUncheckedUpdateInput = {
   donorDeliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutDonorNestedInput
   volunteerDeliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutVolunteerNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -614,6 +621,20 @@ export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
 }
 
+export type UserCreateNestedOneWithoutPaymentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPaymentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPaymentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPaymentsInput
+  upsert?: Prisma.UserUpsertWithoutPaymentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPaymentsInput, Prisma.UserUpdateWithoutPaymentsInput>, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
+}
+
 export type UserCreateWithoutDonationsInput = {
   id?: string
   firstName: string
@@ -632,6 +653,7 @@ export type UserCreateWithoutDonationsInput = {
   donorDeliveries?: Prisma.DeliveryCreateNestedManyWithoutDonorInput
   volunteerDeliveries?: Prisma.DeliveryCreateNestedManyWithoutVolunteerInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDonationsInput = {
@@ -652,6 +674,7 @@ export type UserUncheckedCreateWithoutDonationsInput = {
   donorDeliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutDonorInput
   volunteerDeliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutVolunteerInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDonationsInput = {
@@ -688,6 +711,7 @@ export type UserUpdateWithoutDonationsInput = {
   donorDeliveries?: Prisma.DeliveryUpdateManyWithoutDonorNestedInput
   volunteerDeliveries?: Prisma.DeliveryUpdateManyWithoutVolunteerNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDonationsInput = {
@@ -708,6 +732,7 @@ export type UserUncheckedUpdateWithoutDonationsInput = {
   donorDeliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutDonorNestedInput
   volunteerDeliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutVolunteerNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRequestsInput = {
@@ -728,6 +753,7 @@ export type UserCreateWithoutRequestsInput = {
   donorDeliveries?: Prisma.DeliveryCreateNestedManyWithoutDonorInput
   volunteerDeliveries?: Prisma.DeliveryCreateNestedManyWithoutVolunteerInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRequestsInput = {
@@ -748,6 +774,7 @@ export type UserUncheckedCreateWithoutRequestsInput = {
   donorDeliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutDonorInput
   volunteerDeliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutVolunteerInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRequestsInput = {
@@ -784,6 +811,7 @@ export type UserUpdateWithoutRequestsInput = {
   donorDeliveries?: Prisma.DeliveryUpdateManyWithoutDonorNestedInput
   volunteerDeliveries?: Prisma.DeliveryUpdateManyWithoutVolunteerNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestsInput = {
@@ -804,6 +832,7 @@ export type UserUncheckedUpdateWithoutRequestsInput = {
   donorDeliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutDonorNestedInput
   volunteerDeliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutVolunteerNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDonorDeliveriesInput = {
@@ -824,6 +853,7 @@ export type UserCreateWithoutDonorDeliveriesInput = {
   requests?: Prisma.DonationRequestCreateNestedManyWithoutNgoInput
   volunteerDeliveries?: Prisma.DeliveryCreateNestedManyWithoutVolunteerInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDonorDeliveriesInput = {
@@ -844,6 +874,7 @@ export type UserUncheckedCreateWithoutDonorDeliveriesInput = {
   requests?: Prisma.DonationRequestUncheckedCreateNestedManyWithoutNgoInput
   volunteerDeliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutVolunteerInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDonorDeliveriesInput = {
@@ -869,6 +900,7 @@ export type UserCreateWithoutVolunteerDeliveriesInput = {
   requests?: Prisma.DonationRequestCreateNestedManyWithoutNgoInput
   donorDeliveries?: Prisma.DeliveryCreateNestedManyWithoutDonorInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutVolunteerDeliveriesInput = {
@@ -889,6 +921,7 @@ export type UserUncheckedCreateWithoutVolunteerDeliveriesInput = {
   requests?: Prisma.DonationRequestUncheckedCreateNestedManyWithoutNgoInput
   donorDeliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutDonorInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutVolunteerDeliveriesInput = {
@@ -925,6 +958,7 @@ export type UserUpdateWithoutDonorDeliveriesInput = {
   requests?: Prisma.DonationRequestUpdateManyWithoutNgoNestedInput
   volunteerDeliveries?: Prisma.DeliveryUpdateManyWithoutVolunteerNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDonorDeliveriesInput = {
@@ -945,6 +979,7 @@ export type UserUncheckedUpdateWithoutDonorDeliveriesInput = {
   requests?: Prisma.DonationRequestUncheckedUpdateManyWithoutNgoNestedInput
   volunteerDeliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutVolunteerNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutVolunteerDeliveriesInput = {
@@ -976,6 +1011,7 @@ export type UserUpdateWithoutVolunteerDeliveriesInput = {
   requests?: Prisma.DonationRequestUpdateManyWithoutNgoNestedInput
   donorDeliveries?: Prisma.DeliveryUpdateManyWithoutDonorNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVolunteerDeliveriesInput = {
@@ -996,6 +1032,7 @@ export type UserUncheckedUpdateWithoutVolunteerDeliveriesInput = {
   requests?: Prisma.DonationRequestUncheckedUpdateManyWithoutNgoNestedInput
   donorDeliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutDonorNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -1016,6 +1053,7 @@ export type UserCreateWithoutNotificationsInput = {
   requests?: Prisma.DonationRequestCreateNestedManyWithoutNgoInput
   donorDeliveries?: Prisma.DeliveryCreateNestedManyWithoutDonorInput
   volunteerDeliveries?: Prisma.DeliveryCreateNestedManyWithoutVolunteerInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -1036,6 +1074,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   requests?: Prisma.DonationRequestUncheckedCreateNestedManyWithoutNgoInput
   donorDeliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutDonorInput
   volunteerDeliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutVolunteerInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -1072,6 +1111,7 @@ export type UserUpdateWithoutNotificationsInput = {
   requests?: Prisma.DonationRequestUpdateManyWithoutNgoNestedInput
   donorDeliveries?: Prisma.DeliveryUpdateManyWithoutDonorNestedInput
   volunteerDeliveries?: Prisma.DeliveryUpdateManyWithoutVolunteerNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -1092,6 +1132,107 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   requests?: Prisma.DonationRequestUncheckedUpdateManyWithoutNgoNestedInput
   donorDeliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutDonorNestedInput
   volunteerDeliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutVolunteerNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutPaymentsInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  role: $Enums.UserRole
+  phone?: string | null
+  address?: string | null
+  city?: string | null
+  profileImage?: string | null
+  organizationName?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  donations?: Prisma.FoodDonationCreateNestedManyWithoutDonorInput
+  requests?: Prisma.DonationRequestCreateNestedManyWithoutNgoInput
+  donorDeliveries?: Prisma.DeliveryCreateNestedManyWithoutDonorInput
+  volunteerDeliveries?: Prisma.DeliveryCreateNestedManyWithoutVolunteerInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutPaymentsInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  role: $Enums.UserRole
+  phone?: string | null
+  address?: string | null
+  city?: string | null
+  profileImage?: string | null
+  organizationName?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  donations?: Prisma.FoodDonationUncheckedCreateNestedManyWithoutDonorInput
+  requests?: Prisma.DonationRequestUncheckedCreateNestedManyWithoutNgoInput
+  donorDeliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutDonorInput
+  volunteerDeliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutVolunteerInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutPaymentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
+}
+
+export type UserUpsertWithoutPaymentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPaymentsInput, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPaymentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPaymentsInput, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type UserUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  donations?: Prisma.FoodDonationUpdateManyWithoutDonorNestedInput
+  requests?: Prisma.DonationRequestUpdateManyWithoutNgoNestedInput
+  donorDeliveries?: Prisma.DeliveryUpdateManyWithoutDonorNestedInput
+  volunteerDeliveries?: Prisma.DeliveryUpdateManyWithoutVolunteerNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  donations?: Prisma.FoodDonationUncheckedUpdateManyWithoutDonorNestedInput
+  requests?: Prisma.DonationRequestUncheckedUpdateManyWithoutNgoNestedInput
+  donorDeliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutDonorNestedInput
+  volunteerDeliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutVolunteerNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1105,6 +1246,7 @@ export type UserCountOutputType = {
   donorDeliveries: number
   volunteerDeliveries: number
   notifications: number
+  payments: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1113,6 +1255,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   donorDeliveries?: boolean | UserCountOutputTypeCountDonorDeliveriesArgs
   volunteerDeliveries?: boolean | UserCountOutputTypeCountVolunteerDeliveriesArgs
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+  payments?: boolean | UserCountOutputTypeCountPaymentsArgs
 }
 
 /**
@@ -1160,6 +1303,13 @@ export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Ty
   where?: Prisma.NotificationWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PaymentWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1180,6 +1330,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   donorDeliveries?: boolean | Prisma.User$donorDeliveriesArgs<ExtArgs>
   volunteerDeliveries?: boolean | Prisma.User$volunteerDeliveriesArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1238,6 +1389,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   donorDeliveries?: boolean | Prisma.User$donorDeliveriesArgs<ExtArgs>
   volunteerDeliveries?: boolean | Prisma.User$volunteerDeliveriesArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1251,6 +1403,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     donorDeliveries: Prisma.$DeliveryPayload<ExtArgs>[]
     volunteerDeliveries: Prisma.$DeliveryPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
+    payments: Prisma.$PaymentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1665,6 +1818,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   donorDeliveries<T extends Prisma.User$donorDeliveriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$donorDeliveriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   volunteerDeliveries<T extends Prisma.User$volunteerDeliveriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$volunteerDeliveriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  payments<T extends Prisma.User$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2217,6 +2371,30 @@ export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
+}
+
+/**
+ * User.payments
+ */
+export type User$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Payment
+   */
+  select?: Prisma.PaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Payment
+   */
+  omit?: Prisma.PaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
+  where?: Prisma.PaymentWhereInput
+  orderBy?: Prisma.PaymentOrderByWithRelationInput | Prisma.PaymentOrderByWithRelationInput[]
+  cursor?: Prisma.PaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentScalarFieldEnum | Prisma.PaymentScalarFieldEnum[]
 }
 
 /**

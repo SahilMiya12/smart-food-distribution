@@ -66,3 +66,13 @@ export type Delivery = Prisma.DeliveryModel
  * 
  */
 export type Notification = Prisma.NotificationModel
+/**
+ * Model PasswordResetToken
+ * 
+ */
+export type PasswordResetToken = Prisma.PasswordResetTokenModel
+/**
+ * Model Payment
+ * 
+ */
+export type Payment = Prisma.PaymentModel

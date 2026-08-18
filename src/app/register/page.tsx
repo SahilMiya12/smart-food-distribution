@@ -66,7 +66,7 @@ export default function RegisterPage() {
       <div className="mx-auto max-w-3xl">
         <Link href="/" className="mb-8 flex items-center justify-center gap-2 text-xl font-bold text-emerald-800">
           <Heart className="fill-emerald-700 text-emerald-700" />
-          FoodBridge
+          Smart Food Distribution
         </Link>
 
         <div className="mb-8 text-center">
@@ -122,7 +122,7 @@ export default function RegisterPage() {
                 <input
                   name="firstName"
                   type="text"
-                  placeholder="Sahil"
+                  placeholder="First Name"
                   value={formData.firstName}
                   onChange={handleChange}
                   required
@@ -134,7 +134,7 @@ export default function RegisterPage() {
                 <input
                   name="lastName"
                   type="text"
-                  placeholder="Miya"
+                  placeholder="Last Name"
                   value={formData.lastName}
                   onChange={handleChange}
                   required
