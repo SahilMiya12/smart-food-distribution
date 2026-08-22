@@ -1,17 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { BarChart3, TrendingUp, Users, Package, Truck, HeartHandshake, Building, Bike, Loader2, CheckCircle2 } from "lucide-react";
+import { BarChart3, TrendingUp, Users, Package, Truck, HeartHandshake, Building, Bike, Loader2, CheckCircle2, CreditCard, Download } from "lucide-react";
 
 export default function AdminAnalyticsPage() {
   const [data, setData] = useState<any>(null);
+  const [paymentsData, setPaymentsData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/admin/stats")
-      .then((res) => res.json())
-      .then((d) => {
-        setData(d);
+    Promise.all([
+      fetch("/api/admin/stats").then((res) => res.json()),
+      fetch("/api/payments/history").then((res) => res.json()).catch(() => ({ payments: [], totalAmount: 0 })),
+    ])
+      .then(([statsRes, paymentsRes]) => {
+        setData(statsRes);
+        setPaymentsData(paymentsRes);
         setLoading(false);
       })
       .catch(() => setLoading(false));
@@ -27,6 +31,8 @@ export default function AdminAnalyticsPage() {
 
   const stats = data?.stats || {};
   const totalUsers = stats.totalUsers || 1;
+  const payments = paymentsData?.payments || [];
+  const totalFunds = paymentsData?.totalAmount || 0;
 
   const rolePercentages = [
     { label: "Donors", count: stats.totalDonors || 0, color: "bg-emerald-500", textColor: "text-emerald-700", icon: HeartHandshake },
@@ -82,6 +88,43 @@ export default function AdminAnalyticsPage() {
           </p>
           <p className="mt-2 text-xs text-slate-500">Delivery completion rate</p>
         </div>
+      </div>
+
+      {/* Razorpay Logistics Funding & Financial Overview */}
+      <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700">
+              <CreditCard size={20} />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-slate-900">Razorpay Transactional Audit</h2>
+              <p className="text-xs text-slate-500">Logistics contributions & volunteer transport payouts.</p>
+            </div>
+          </div>
+          <div className="rounded-2xl bg-emerald-50 border border-emerald-200 px-4 py-2 text-right">
+            <p className="text-[10px] font-bold uppercase text-emerald-800">Total Funds Collected</p>
+            <p className="text-xl font-black text-emerald-950">₹{totalFunds.toLocaleString()}</p>
+          </div>
+        </div>
+
+        {payments.length === 0 ? (
+          <p className="text-xs text-slate-400 py-4">No Razorpay transactions recorded yet.</p>
+        ) : (
+          <div className="space-y-2 mt-4">
+            {payments.slice(0, 5).map((p: any) => (
+              <div key={p.id} className="flex items-center justify-between rounded-2xl bg-slate-50 p-3.5 text-xs">
+                <div>
+                  <p className="font-bold text-slate-900">₹{p.amount} • {p.purpose}</p>
+                  <p className="text-[11px] text-slate-500">{p.user?.firstName} {p.user?.lastName} ({p.role || p.user?.role})</p>
+                </div>
+                <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-[10px] font-bold text-emerald-800">
+                  {p.status}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Role Breakdown Progress Bars */}

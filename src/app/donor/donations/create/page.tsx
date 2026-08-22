@@ -13,6 +13,7 @@ import {
   Upload,
   X,
 } from "lucide-react";
+import ImageUploadInput from "@/components/common/ImageUploadInput";
 
 type FormData = {
   foodName: string;
@@ -416,36 +417,22 @@ export default function CreateDonationPage() {
                 </div>
               </section>
 
-              {/* Image URL */}
+              {/* Food Image Upload */}
               <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
                 <div className="mb-6">
                   <h2 className="text-xl font-bold text-slate-900">
                     Food Image
                   </h2>
-
                   <p className="mt-1 text-sm text-slate-500">
-                    Optional. Add an image URL for your donation.
+                    Upload a photo of the food directly from your device or paste an image link.
                   </p>
                 </div>
 
-                <div className="rounded-2xl border-2 border-dashed border-slate-200 p-6 text-center">
-                  <Upload
-                    size={28}
-                    className="mx-auto mb-3 text-slate-400"
-                  />
-
-                  <p className="mb-3 text-sm text-slate-500">
-                    You can add an image URL for now.
-                  </p>
-
-                  <input
-                    type="url"
-                    value={imageUrl}
-                    onChange={(event) => setImageUrl(event.target.value)}
-                    placeholder="https://example.com/food-image.jpg"
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"
-                  />
-                </div>
+                <ImageUploadInput
+                  value={imageUrl}
+                  onChange={setImageUrl}
+                  label="Upload Food Image"
+                />
               </section>
             </div>
 
@@ -492,8 +479,8 @@ export default function CreateDonationPage() {
                 </div>
               </div>
 
-              {/* Submit */}
-              <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              {/* Submit & Optional Logistics Sponsorship */}
+              <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm space-y-4">
                 <button
                   type="submit"
                   disabled={isSubmitting}
@@ -507,14 +494,13 @@ export default function CreateDonationPage() {
                   ) : (
                     <>
                       <Send size={18} />
-                      Publish Donation
+                      Publish Donation (Free)
                     </>
                   )}
                 </button>
 
-                <p className="mt-4 text-center text-xs leading-5 text-slate-500">
-                  By publishing, you confirm that the food information is
-                  accurate and safe for distribution.
+                <p className="text-center text-xs leading-5 text-slate-500">
+                  By publishing, you confirm that the food information is accurate and safe for distribution.
                 </p>
               </div>
 

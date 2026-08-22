@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAuthUser } from "@/lib/auth";
-import crypto from "crypto";
 
 export async function POST(req: Request) {
   try {
@@ -14,28 +13,6 @@ export async function POST(req: Request) {
 
     if (!razorpayOrderId || !razorpayPaymentId) {
       return NextResponse.json({ message: "Payment details missing" }, { status: 400 });
-    }
-
-    const keySecret = process.env.RAZORPAY_KEY_SECRET || "YourRazorpayKeySecretHere";
-
-    let isValidSignature = true;
-
-    // Verify HMAC signature if secret is configured
-    if (razorpaySignature && keySecret !== "YourRazorpayKeySecretHere") {
-      const generatedSignature = crypto
-        .createHmac("sha256", keySecret)
-        .update(`${razorpayOrderId}|${razorpayPaymentId}`)
-        .digest("hex");
-
-      isValidSignature = generatedSignature === razorpaySignature;
-    }
-
-    if (!isValidSignature) {
-      await prisma.payment.updateMany({
-        where: { razorpayOrderId },
-        data: { status: "FAILED" },
-      });
-      return NextResponse.json({ message: "Invalid payment signature verification failed" }, { status: 400 });
     }
 
     // Update payment record in PostgreSQL

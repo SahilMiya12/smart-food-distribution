@@ -17,6 +17,7 @@ import {
   AlertCircle,
   ImageIcon,
 } from "lucide-react";
+import ImageUploadInput from "@/components/common/ImageUploadInput";
 
 type Donation = {
   id: string;
@@ -472,6 +473,12 @@ export default function DonationsPage() {
                   />
                 </div>
               </div>
+
+              <ImageUploadInput
+                value={editDonation.imageUrl || ""}
+                onChange={(url) => setEditDonation({ ...editDonation, imageUrl: url })}
+                label="Food Image"
+              />
 
               <div className="mt-6 flex justify-end gap-3 border-t border-slate-100 pt-4">
                 <button

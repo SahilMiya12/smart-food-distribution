@@ -11,7 +11,6 @@ import {
   BarChart3,
   FileText,
   Settings,
-  CreditCard,
 } from "lucide-react";
 
 import DashboardShell from "@/components/dashboard/DashboardShell";
@@ -70,11 +69,6 @@ export default async function AdminLayout({
       label: "Deliveries",
       href: "/admin/deliveries",
       icon: <Truck size={19} />,
-    },
-    {
-      label: "Payments",
-      href: "/admin/payments",
-      icon: <CreditCard size={19} />,
     },
     {
       label: "Analytics",

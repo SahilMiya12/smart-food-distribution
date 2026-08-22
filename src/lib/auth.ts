@@ -1,4 +1,5 @@
 import { SignJWT, jwtVerify } from "jose";
+import { cookies } from "next/headers";
 
 const secret = process.env.JWT_SECRET;
 
@@ -34,6 +35,17 @@ export async function verifyToken(token: string) {
     );
 
     return payload as unknown as AuthUser;
+  } catch {
+    return null;
+  }
+}
+
+export async function getAuthUser() {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("auth_token")?.value;
+    if (!token) return null;
+    return await verifyToken(token);
   } catch {
     return null;
   }

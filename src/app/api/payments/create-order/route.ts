@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAuthUser } from "@/lib/auth";
-import crypto from "crypto";
 
 export async function POST(req: Request) {
   try {
@@ -19,12 +18,12 @@ export async function POST(req: Request) {
     const keyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_YourRazorpayKeyHere";
     const keySecret = process.env.RAZORPAY_KEY_SECRET || "YourRazorpayKeySecretHere";
 
-    let razorpayOrderId = `order_${crypto.randomBytes(8).toString("hex")}`;
+    let razorpayOrderId = `order_${globalThis.crypto.randomUUID().replace(/-/g, "").substring(0, 16)}`;
 
-    // If real/test key secret is configured (not placeholder), create order via Razorpay API
+    // If real/test key secret is configured (not default placeholder), create order via Razorpay API
     if (keyId.startsWith("rzp_test_") && keyId !== "rzp_test_YourRazorpayKeyHere" && keySecret !== "YourRazorpayKeySecretHere") {
       try {
-        const authHeader = "Basic " + Buffer.from(`${keyId}:${keySecret}`).toString("base64");
+        const authHeader = "Basic " + btoa(`${keyId}:${keySecret}`);
         const response = await fetch("https://api.razorpay.com/v1/orders", {
           method: "POST",
           headers: {
@@ -74,7 +73,6 @@ export async function POST(req: Request) {
       user: {
         name: `${user.firstName} ${user.lastName}`,
         email: user.email,
-        phone: user.phone || "",
       },
     });
   } catch (error) {

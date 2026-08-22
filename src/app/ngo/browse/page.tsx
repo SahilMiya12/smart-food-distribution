@@ -17,6 +17,7 @@ type Donation = {
   category: string;
   quantity: number;
   unit: string;
+  imageUrl: string | null;
   expiryDate: string;
   pickupAddress: string;
   pickupCity: string;
@@ -245,14 +246,24 @@ export default function BrowseDonationsPage() {
                 className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
               >
                 {/* Card Top */}
-                <div className="relative flex h-40 items-center justify-center bg-gradient-to-br from-emerald-100 via-teal-50 to-sky-100">
-                  <Package
-                    size={70}
-                    strokeWidth={1.2}
-                    className="text-emerald-500 transition duration-300 group-hover:scale-110"
-                  />
+                <div className="relative h-44 overflow-hidden bg-slate-100">
+                  {donation.imageUrl ? (
+                    <img
+                      src={donation.imageUrl}
+                      alt={donation.foodName}
+                      className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center bg-gradient-to-br from-emerald-100 via-teal-50 to-sky-100">
+                      <Package
+                        size={70}
+                        strokeWidth={1.2}
+                        className="text-emerald-500 transition duration-300 group-hover:scale-110"
+                      />
+                    </div>
+                  )}
 
-                  <span className="absolute right-4 top-4 rounded-full bg-white px-3 py-1 text-xs font-bold text-emerald-700 shadow-sm">
+                  <span className="absolute right-4 top-4 rounded-full bg-white/90 backdrop-blur-md px-3 py-1 text-xs font-bold text-emerald-700 shadow-sm">
                     AVAILABLE
                   </span>
                 </div>

@@ -6,7 +6,6 @@ import {
   PlusCircle,
   ClipboardList,
   Truck,
-  CreditCard,
 } from "lucide-react";
 
 import { verifyToken } from "@/lib/auth";
@@ -61,11 +60,6 @@ export default async function DonorLayout({
       label: "Deliveries",
       href: "/donor/deliveries",
       icon: <Truck size={19} />,
-    },
-    {
-      label: "Payments",
-      href: "/donor/payments",
-      icon: <CreditCard size={19} />,
     },
   ];
 

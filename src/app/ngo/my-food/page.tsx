@@ -94,19 +94,30 @@ export default function NgoMyFoodPage() {
         ) : (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {requests.map((r) => (
-              <div key={r.id} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 space-y-3">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-bold text-slate-900">{r.donation?.foodName}</h3>
-                  <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-800">
-                    APPROVED
-                  </span>
+              <div key={r.id} className="overflow-hidden rounded-3xl border border-slate-200 bg-white p-5 space-y-3 shadow-sm flex items-start gap-4">
+                <div className="h-16 w-16 overflow-hidden rounded-2xl border border-slate-200 bg-emerald-50 shrink-0">
+                  {r.donation?.imageUrl ? (
+                    <img src={r.donation.imageUrl} alt={r.donation.foodName} className="h-full w-full object-cover" />
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-emerald-600 font-bold text-xs">
+                      <Package size={22} />
+                    </div>
+                  )}
                 </div>
-                <p className="text-xs text-slate-600">
-                  <span className="font-semibold text-slate-800">Quantity:</span> {r.donation?.quantity} {r.donation?.unit}
-                </p>
-                <p className="text-xs text-slate-600 flex items-center gap-1">
-                  <MapPin size={14} className="text-emerald-600" /> {r.donation?.pickupCity}
-                </p>
+                <div className="space-y-1 min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="font-bold text-slate-900 truncate">{r.donation?.foodName}</h3>
+                    <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-800 shrink-0">
+                      APPROVED
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-600">
+                    <span className="font-semibold text-slate-800">Quantity:</span> {r.donation?.quantity} {r.donation?.unit}
+                  </p>
+                  <p className="text-xs text-slate-500 flex items-center gap-1">
+                    <MapPin size={13} className="text-emerald-600 shrink-0" /> {r.donation?.pickupCity}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

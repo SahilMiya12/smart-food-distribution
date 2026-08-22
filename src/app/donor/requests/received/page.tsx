@@ -19,6 +19,7 @@ type RequestItem = {
     category: string;
     quantity: number;
     unit: string;
+    imageUrl?: string | null;
     pickupCity: string;
     pickupAddress: string;
     status: string;
@@ -172,11 +173,14 @@ async function updateRequest(
                 >
                   <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
                     <div className="flex gap-4">
-                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-emerald-100">
-                        <Package
-                          className="text-emerald-700"
-                          size={26}
-                        />
+                      <div className="h-16 w-16 overflow-hidden rounded-2xl border border-slate-200 bg-emerald-100 shrink-0">
+                        {item.donation.imageUrl ? (
+                          <img src={item.donation.imageUrl} alt={item.donation.foodName} className="h-full w-full object-cover" />
+                        ) : (
+                          <div className="flex h-full items-center justify-center">
+                            <Package className="text-emerald-700" size={26} />
+                          </div>
+                        )}
                       </div>
 
                       <div>

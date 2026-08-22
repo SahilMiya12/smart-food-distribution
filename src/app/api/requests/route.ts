@@ -55,6 +55,7 @@ export async function GET() {
             category: true,
             quantity: true,
             unit: true,
+            imageUrl: true,
             pickupCity: true,
             pickupAddress: true,
             status: true,

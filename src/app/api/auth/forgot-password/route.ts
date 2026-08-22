@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import crypto from "crypto";
 
 export async function POST(req: Request) {
   try {
@@ -15,19 +14,18 @@ export async function POST(req: Request) {
     });
 
     if (!user) {
-      // Security standard: Don't reveal user existence
       return NextResponse.json({
         message: "If an account with that email exists, password reset instructions have been generated.",
       });
     }
 
-    // Delete any existing reset tokens for this email
+    // Delete existing reset tokens for this email
     await prisma.passwordResetToken.deleteMany({
       where: { email: user.email },
     });
 
     // Generate secure token & 1 hour expiry
-    const token = crypto.randomBytes(32).toString("hex");
+    const token = globalThis.crypto.randomUUID().replace(/-/g, "") + Math.random().toString(36).substring(2);
     const expiresAt = new Date(Date.now() + 60 * 60 * 1000);
 
     await prisma.passwordResetToken.create({
@@ -38,7 +36,6 @@ export async function POST(req: Request) {
       },
     });
 
-    // Generate reset URL
     const resetUrl = `/reset-password?token=${token}`;
 
     return NextResponse.json({

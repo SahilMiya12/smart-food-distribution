@@ -6,7 +6,6 @@ import {
   FileText,
   PackageCheck,
   Bell,
-  CreditCard,
 } from "lucide-react";
 
 import DashboardShell from "@/components/dashboard/DashboardShell";
@@ -54,11 +53,6 @@ export default async function NgoLayout({
       label: "Rescued Food",
       href: "/ngo/my-food",
       icon: <PackageCheck size={19} />,
-    },
-    {
-      label: "Payments",
-      href: "/ngo/payments",
-      icon: <CreditCard size={19} />,
     },
     {
       label: "Notifications",
